@@ -1,0 +1,13 @@
+{
+  "auth": {
+    "login": {
+      "nicknamePlaceholder": "Enter your nickname",
+      "loginButton": "Login",
+      "nicknameValidationErrorMessages": {
+        "minLength": "Nickname must be at least 2 characters long.",
+        "maxLength": "Nickname must be at most 20 characters long."
+      },
+      "loginSuccessMessage": "Welcome, {{nickname}}!"
+    }
+  }
+}

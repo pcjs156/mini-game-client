@@ -1,13 +1,16 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface LoginFormProps {
   nickname: string;
   setNickname: (nickname: string) => void;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ nickname, setNickname, onSubmit }) => {
+  const { t } = useTranslation();
+
   return (
     <Box
       component="form"
@@ -38,12 +41,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ nickname, setNickname, onSubmit }
             style: { textAlign: "center" },
           },
         }}
-        placeholder="Enter your nickname"
+        placeholder={t("auth.login.nicknamePlaceholder")}
         autoFocus
         required
       />
       <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-        Login
+        {t("auth.login.loginButton")}
       </Button>
     </Box>
   );
