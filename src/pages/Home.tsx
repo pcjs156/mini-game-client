@@ -3,15 +3,16 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { faker } from "@faker-js/faker";
+
 import LoginForm from "../components/auth/LoginForm";
 import { useAuth } from "../hooks/useAuth";
 import { loginSchema } from "../schemas/auth/loginSchema";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { loginMutation } = useAuth();
   const [nickname, setNickname] = useState("");
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { login, loginMutation } = useAuth();
 
   useEffect(() => {
     const prefix = faker.color.human();
@@ -33,7 +34,7 @@ export default function Home() {
 
     // 유효하면 Supabase 로그인 요청
     const validatedData = validationResult.data as { nickname: string };
-    login(validatedData.nickname);
+    loginMutation.mutate(validatedData.nickname);
   };
 
   useEffect(() => {

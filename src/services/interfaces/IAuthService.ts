@@ -1,5 +1,4 @@
 import { UUID } from "../../types";
-import SupabaseAuthService from "../implementations/SupabaseAuthService";
 
 export interface LoginUserInfo {
   id: UUID;
@@ -16,6 +15,3 @@ export interface LoginResult {
 export interface IAuthService {
   doLogin(nickname: string): Promise<LoginResult>;
 }
-
-const instance: IAuthService = new SupabaseAuthService();
-export default instance;

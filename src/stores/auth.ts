@@ -1,31 +1,31 @@
 import { create } from "zustand";
-
-import { Player } from "../types/player";
 import { immer } from "zustand/middleware/immer";
+
+import { User } from "../types/user";
 
 interface AuthState {
   isAuthenticated: boolean;
-  loginUser: Player | null;
-  doLogin: (nickname: string) => void;
-  doLogout: () => void;
-  setNickname: (nickname: string) => void;
+  loginUser: User | null;
+  setLoginUser: (loginUser: User) => void;
+  resetLoginUser: () => void;
+  setLoginUserNickname: (nickname: string) => void;
 }
 
-export const useUserStore = create(
+export const useAuthStore = create(
   immer<AuthState>((set) => ({
     isAuthenticated: false,
-    loginUser: null as Player | null,
-    doLogin: (nickname: string) =>
+    loginUser: null as User | null,
+    setLoginUser: (loginUser: User) =>
       set((state) => {
         state.isAuthenticated = true;
-        state.loginUser = { id: "", nickname };
+        state.loginUser = loginUser;
       }),
-    doLogout: () =>
+    resetLoginUser: () =>
       set((state) => {
         state.isAuthenticated = false;
         state.loginUser = null;
       }),
-    setNickname: (nickname: string) =>
+    setLoginUserNickname: (nickname: string) =>
       set((state) => {
         if (state.loginUser) {
           state.loginUser.nickname = nickname;

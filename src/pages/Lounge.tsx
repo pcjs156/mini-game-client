@@ -1,7 +1,7 @@
-import { useAuth } from "../hooks/useAuth";
+import { useAuthStore } from "../stores/auth";
 
 export default function Lounge() {
-  const { loginUser } = useAuth();
+  const { loginUser } = useAuthStore();
   return (
     <div>
       <h1>Current User: {loginUser!.nickname}</h1>

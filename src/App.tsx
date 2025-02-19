@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+
 import Home from "./pages/Home";
-import { useAuth } from "./hooks/useAuth";
 import Lounge from "./pages/Lounge";
+import { useAuthStore } from "./stores/auth";
 
 export default function App() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <Router>

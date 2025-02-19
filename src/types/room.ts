@@ -1,11 +1,11 @@
 import { Identifiable, UUID } from ".";
-import { Player } from "./player";
+import { User } from "./user";
 
 export interface Room extends Identifiable {
   id: UUID;
   name: string;
-  host: Player;
-  participants: Player[];
+  host: User;
+  participants: User[];
   maxParticipants: number;
   isPrivate: boolean;
 }

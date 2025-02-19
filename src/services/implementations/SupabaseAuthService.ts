@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 import { IAuthService, LoginResult } from "../interfaces/IAuthService";
 
 export default class SupabaseAuthService implements IAuthService {
