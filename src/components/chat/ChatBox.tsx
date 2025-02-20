@@ -46,23 +46,16 @@ const ChatBox: React.FC = () => {
       };
       setMessages((prevMessages) => [...prevMessages, newMessageObj]);
       setNewMessage("");
-      scrollToBottom("smooth");
     }
   };
 
-  const isScrolledToBottom = useCallback(() => {
+  const isScrolledToBottom = () => {
     const chatBox = chatBoxRef.current;
     if (!chatBox) return false;
     return chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 1;
-  }, []);
+  };
 
-  const isNearBottom = useCallback(() => {
-    const chatBox = chatBoxRef.current;
-    if (!chatBox) return false;
-    return chatBox.scrollHeight - chatBox.clientHeight - chatBox.scrollTop <= 100;
-  }, []);
-
-  const handleReceiveMessage = useCallback(() => {
+  const handleReceiveMessage = () => {
     const newMessageObj: ChatMessage = {
       id: messages.length + 1,
       sentBy: "OtherUser",
@@ -70,25 +63,17 @@ const ChatBox: React.FC = () => {
       isMyMessage: false,
       isRead: false,
     };
-    setMessages((prevMessages) => {
-      const updatedMessages = [...prevMessages, newMessageObj];
-      if (isScrolledToBottom() || isNearBottom()) {
-        scrollToBottom("smooth");
-        return updatedMessages.map((msg) => ({ ...msg, isRead: true }));
-      }
-      return updatedMessages;
-    });
-  }, [isNearBottom, isScrolledToBottom, messages.length, scrollToBottom]);
-
-  useEffect(() => {
-    setMessages((prevMessages) => prevMessages.map((msg) => ({ ...msg, isRead: true })));
-    scrollToBottom("auto");
-  }, [scrollToBottom]);
+    setMessages((prevMessages) => [...prevMessages, newMessageObj]);
+  };
 
   useEffect(() => {
     const interval = setInterval(handleReceiveMessage, 3000);
     return () => clearInterval(interval);
-  }, [handleReceiveMessage]);
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom("auto");
+  }, [scrollToBottom]);
 
   useEffect(() => {
     const chatBox = chatBoxRef.current;
@@ -100,7 +85,7 @@ const ChatBox: React.FC = () => {
       chatBox.addEventListener("scroll", handleScroll);
       return () => chatBox.removeEventListener("scroll", handleScroll);
     }
-  }, [isScrolledToBottom]);
+  }, []);
 
   return (
     <Box
@@ -116,13 +101,14 @@ const ChatBox: React.FC = () => {
       }}
     >
       <Box ref={chatBoxRef} sx={{ flexGrow: 1, overflowY: "scroll", p: 2 }}>
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <ChatMessageBubble
             key={msg.id}
             id={`message-${msg.id}`}
             sentBy={msg.sentBy}
             content={msg.content}
             isMyMessage={msg.isMyMessage}
+            isLastMessage={index === messages.length - 1}
           />
         ))}
         <div ref={messagesEndRef} />
