@@ -1,8 +1,7 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Container, Box, Typography } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box, Typography } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { useThemeStore } from "../../stores/ui/theme";
-import { useAuth } from "hooks/useAuth";
 import { useAuthStore } from "stores/auth";
 
 interface GlobalLayoutProps {
@@ -45,7 +44,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = ({ children }) => {
           <Typography variant="button">{loginUser?.nickname}</Typography>
         </Toolbar>
       </AppBar>
-      <Container sx={{ flex: 1 }}>{children}</Container>
+      <Box sx={{ flex: 1, p: 0 }}>{children}</Box>
       <Box component="footer" sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
         <IconButton edge="end" color="inherit" aria-label="theme" onClick={handleClick}>
           {theme === "light" ? <Brightness7 /> : <Brightness4 />}

@@ -9,5 +9,10 @@
       },
       "loginSuccessMessage": "Welcome, {{nickname}}!"
     }
+  },
+  "game": {
+    "type": {
+      "tic-tac-toe": "Tic-Tac-Toe"
+    }
   }
 }
