@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import GlobalLayout from "../components/common/GlobalLayout";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import RoomList from "components/lounge/RoomList";
 import ChatBox from "components/chat/ChatBox";
 import { Room } from "types/room";
 import { RoomPreviewInfo } from "components/lounge/RoomPreview";
+import ChannelSelection from "components/lounge/ChannelSelection";
+import ChannelUserList from "components/lounge/ChannelUserList";
+import { User } from "types/user";
+import CreateRoomButton from "components/lounge/CreateRoomButton";
+import MyStatistics from "components/lounge/MyStatistics";
 
 function getDummyRoomPreviewInfoListData(numOfRooms: number): RoomPreviewInfo[] {
   const result: RoomPreviewInfo[] = [];
@@ -48,8 +53,15 @@ function addEmptySlots(selectedRooms: RoomPreviewInfo[], roomsPerPage: number): 
   return selectedRooms;
 }
 
+const users: User[] = [];
+for (let i = 0; i < 17; i++) {
+  users.push({
+    id: i.toString(),
+    nickname: `User ${i}`,
+  });
+}
+
 export default function Lounge() {
-  const users = ["User1", "User2", "User3"];
   const roomPreviewInfoList: RoomPreviewInfo[] = getDummyRoomPreviewInfoListData(19);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,12 +95,10 @@ export default function Lounge() {
     <GlobalLayout>
       <Box sx={{ display: "flex", height: "100%" }}>
         <Box sx={{ width: "20%", borderRight: "1px solid #ccc", p: 2, overflowY: "auto" }}>
-          <Typography variant="h6">Users in Lounge</Typography>
-          <ul>
-            {users.map((user, index) => (
-              <li key={index}>{user}</li>
-            ))}
-          </ul>
+          <ChannelSelection />
+          <CreateRoomButton />
+          <MyStatistics />
+          <ChannelUserList users={users} />
         </Box>
 
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", p: 3 }}>
