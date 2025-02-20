@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
-
-import { Room } from "types/room";
 import GlobalLayout from "../components/common/GlobalLayout";
+import { Box, Typography } from "@mui/material";
 import RoomList from "components/lounge/RoomList";
+import ChatBox from "components/chat/ChatBox";
+import { Room } from "types/room";
 import { RoomPreviewInfo } from "components/lounge/RoomPreview";
 
 function getDummyRoomPreviewInfoListData(numOfRooms: number): RoomPreviewInfo[] {
@@ -82,7 +82,7 @@ export default function Lounge() {
   return (
     <GlobalLayout>
       <Box sx={{ display: "flex", height: "100%" }}>
-        <Box sx={{ width: "20%", borderRight: "1px solid #ccc", p: 2, height: "100vh", overflowY: "auto" }}>
+        <Box sx={{ width: "20%", borderRight: "1px solid #ccc", p: 2, overflowY: "auto" }}>
           <Typography variant="h6">Users in Lounge</Typography>
           <ul>
             {users.map((user, index) => (
@@ -91,7 +91,7 @@ export default function Lounge() {
           </ul>
         </Box>
 
-        <Box sx={{ flexGrow: 1, p: 2, padding: "3%" }}>
+        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", p: 3 }}>
           <RoomList
             selectedRooms={selectedRooms}
             currentPage={currentPage}
@@ -100,6 +100,9 @@ export default function Lounge() {
             handlePreviousPage={handlePreviousPage}
             handleNextPage={handleNextPage}
           />
+          <Box sx={{ flexGrow: 1, mt: 2 }}>
+            <ChatBox />
+          </Box>
         </Box>
       </Box>
     </GlobalLayout>
