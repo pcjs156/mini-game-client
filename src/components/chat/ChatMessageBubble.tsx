@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 interface ChatMessageBubbleProps {
   id: string;
@@ -10,6 +10,9 @@ interface ChatMessageBubbleProps {
 }
 
 const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ sentBy, content, isMyMessage, isLastMessage }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
+
   return (
     <Box
       sx={{
@@ -30,7 +33,8 @@ const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ sentBy, content, 
         sx={{
           p: 2,
           borderRadius: 2,
-          backgroundColor: isMyMessage ? "#dcf8c6" : "#f1f1f1",
+          backgroundColor: isMyMessage ? (isDarkMode ? "#375a7f" : "#dcf8c6") : isDarkMode ? "#444" : "#f1f1f1",
+          color: isDarkMode ? "#fff" : "#000",
           wordBreak: "break-word",
         }}
       >
