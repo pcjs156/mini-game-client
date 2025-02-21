@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 import { GameType } from "../../../../types/room";
 
 interface MaxParticipantsInputProps {
   gameType: GameType;
+  playerCount: number;
+  setPlayerCount: (count: number) => void;
 }
 
 const fixedMaxParticipants: Record<GameType, number> = {
   "tic-tac-toe": 2,
 };
 
-export default function MaxParticipantsInput({ gameType }: MaxParticipantsInputProps) {
-  const [playerCount, setPlayerCount] = useState<number>(0);
+export default function MaxParticipantsInput({ gameType, playerCount, setPlayerCount }: MaxParticipantsInputProps) {
   const [isModifiable, setIsModifiable] = useState<boolean>(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function MaxParticipantsInput({ gameType }: MaxParticipantsInputP
       setPlayerCount(0);
       setIsModifiable(true);
     }
-  }, [gameType]);
+  }, [gameType, setPlayerCount]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
