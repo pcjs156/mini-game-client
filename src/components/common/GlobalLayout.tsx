@@ -19,7 +19,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = ({ children }) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <AppBar position="static" sx={{ height: "64px" }}>
+      <AppBar position="static" sx={{ height: "64px", backgroundColor: muiTheme.palette.primary.main }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography variant="h6" component="div">
             Brand Logo
@@ -38,8 +38,8 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = ({ children }) => {
         sx={{
           p: 2,
           mt: "auto",
-          backgroundColor: muiTheme.palette.background.default,
-          color: muiTheme.palette.text.primary,
+          backgroundColor: muiTheme.palette.primary.main, // AppBar와 동일한 색상
+          color: muiTheme.palette.primary.contrastText, // AppBar와 동일한 텍스트 색상
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
