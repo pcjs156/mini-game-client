@@ -3,8 +3,31 @@ import { UUID } from "../../types";
 import { IRoomService, CreateRoomParams, CreateRoomResult } from "../interfaces/IRoomService";
 import { useAuthStore } from "../../stores/auth";
 import { Room } from "types/room";
+import { SupabaseGenericService } from "./SupabaseGenericService";
 
-export default class SupabaseRoomService implements IRoomService {
+export default class SupabaseRoomService extends SupabaseGenericService<Room> implements IRoomService {
+  static REMOVE_FIELDS: string[] = ["created_at", "host_id", "password"];
+  static CONVERTING_FIELDS: Record<string, string> = {
+    is_private: "isPrivate",
+    max_participants: "maxParticipants",
+  };
+
+  constructor() {
+    super("rooms");
+  }
+
+  protected transformResponse(data: any): Room {
+    const result: any = { ...super.transformResponse(data) };
+    SupabaseRoomService.REMOVE_FIELDS.forEach((field) => {
+      delete result[field];
+    });
+    Object.entries(SupabaseRoomService.CONVERTING_FIELDS).forEach(([key, value]) => {
+      result[value] = result[key];
+      delete result[key];
+    });
+    return result;
+  }
+
   getUserIdByUuid = async (uuid: UUID): Promise<number> => {
     const { data, error } = await supabase.from("users").select("id").eq("uuid", uuid).single();
     if (error) {

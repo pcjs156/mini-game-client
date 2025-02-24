@@ -1,4 +1,5 @@
 import { Room, GameType } from "../../types/room";
+import { IGenericService } from "./IGenericService";
 
 export interface CreateRoomParams {
   name: string;
@@ -14,6 +15,6 @@ export interface CreateRoomResult {
   room?: Room;
 }
 
-export interface IRoomService {
+export interface IRoomService extends IGenericService<Room> {
   createRoom(params: CreateRoomParams): Promise<CreateRoomResult>;
 }

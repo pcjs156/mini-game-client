@@ -41,10 +41,7 @@ export default function LoungeRoomPreview({ roomPreviewInfo, onClick }: LoungeRo
           {room.isPrivate && <LockIcon sx={{ position: "absolute", top: 8, right: 8 }} />}
           <Typography variant="body1">{room.name}</Typography>
           <Typography variant="body2">
-            <b>{gameTypeDisplayName}</b>
-            <span style={{ fontSize: "0.7rem", color: "darkgray" }}>
-              ({room.participants.length} / {room.maxParticipants})
-            </span>
+            <b>{gameTypeDisplayName}</b> <span style={{ fontSize: "0.7rem", color: "darkgray" }}>(N명 / {room.maxParticipants})</span>
           </Typography>
         </>
       )}
